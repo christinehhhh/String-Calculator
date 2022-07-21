@@ -1,29 +1,22 @@
 export class StringCalculator {
   Add(input: string): number {
-    let output = 0;
-    let arrayInteger = [];
-    let negativeArray = [];
-    let smallValueArray = [];
     const last = input.charAt(input.length - 1);
 
-    arrayInteger = this.replaceDelimiters(input);
-    negativeArray = arrayInteger.filter((value) => value < 0);
+    const arrayInteger = this.replaceDelimiters(input);
+    const negativeArray = arrayInteger.filter((value) => value < 0);
 
-    if (negativeArray.length === 0) {
-      if (last !== "\n") {
-        if (arrayInteger.every((e) => e < 1000)) {
-          output = this.calculateOutput(input, arrayInteger);
-        } else {
-          smallValueArray = arrayInteger.filter((value) => value < 1000);
-          output = this.calculateOutput(input, smallValueArray);
-        }
-      } else {
-        throw "New line not at the end!";
-      }
-    } else {
+    if (negativeArray.length !== 0) {
       throw "negatives not allowed - " + negativeArray;
     }
-    return output;
+    if (last === "\n") {
+      throw "New line not at the end!";
+    }
+    if (arrayInteger.every((e) => e < 1000)) {
+      return this.calculateOutput(input, arrayInteger);
+    } else {
+      const smallValueArray = arrayInteger.filter((value) => value < 1000);
+      return this.calculateOutput(input, smallValueArray);
+    }
   }
 
   private replaceDelimiters(input: string): number[] {

@@ -6,7 +6,7 @@ describe("StringCalculator", () => {
 
   // Test Step 1:
   describe("Up to two numbers", () => {
-    it("Sum of 2", () => {
+    it("sould calculate the sum", () => {
       expect(stringCalculator.Add("")).toBe(0);
       expect(stringCalculator.Add("1")).toBe(1);
       expect(stringCalculator.Add("1,2")).toBe(3);
@@ -15,7 +15,7 @@ describe("StringCalculator", () => {
 
   // Test Step 2:
   describe("Unknown amount of numbers", () => {
-    it("Sum of multiple", () => {
+    it("sould calculate the sum", () => {
       expect(stringCalculator.Add("1,2,3,4,5,6")).toBe(21);
       expect(stringCalculator.Add("1,2,3,4,5,6,6")).toBe(27);
     });
@@ -23,7 +23,7 @@ describe("StringCalculator", () => {
 
   // Test Step 3:
   describe("With new line", () => {
-    it("Sum with new line", () => {
+    it("should calculate numbers after new line, new line at the end, throw error", () => {
       expect(stringCalculator.Add("1\n2,3")).toBe(6);
       expect(stringCalculator.Add("1\n2\n3,4")).toBe(10);
       expect(() => {
@@ -34,7 +34,7 @@ describe("StringCalculator", () => {
 
   // Test Step 4:
   describe("With delimiter", () => {
-    it("Sum with delimeter", () => {
+    it("should calculate the number with delimiter", () => {
       expect(stringCalculator.Add("//;\n1;2")).toBe(3);
       expect(stringCalculator.Add("//,\n2,3\n,4,5")).toBe(14);
       expect(stringCalculator.Add("//:\n2,3\n,4:5")).toBe(14);
@@ -43,7 +43,7 @@ describe("StringCalculator", () => {
 
   // Test Step 5:
   describe("Include negative", () => {
-    it("Sum with negative", () => {
+    it("should throw not allowed error with the negative number", () => {
       expect(() => {
         stringCalculator.Add("-1");
       }).toThrowError("negatives not allowed - -1");
@@ -64,7 +64,7 @@ describe("StringCalculator", () => {
 
   // Test Step 6:
   describe("Number bigger than 1000 ignored", () => {
-    it("Sum with above 1000", () => {
+    it("should only calculate sum of numbers smaller than 1000", () => {
       expect(stringCalculator.Add("1,2002")).toBe(1);
       expect(stringCalculator.Add("1,1002,3,20004,5,6,106")).toBe(121);
       expect(stringCalculator.Add("1001\n2,3")).toBe(5);
@@ -74,7 +74,7 @@ describe("StringCalculator", () => {
 
   // Test Step 7:
   describe("Delimiter with any length", () => {
-    it("Sum with random length delimiter", () => {
+    it("should calculate the sum of numbers", () => {
       expect(stringCalculator.Add("//[***]\n1***2***3")).toBe(6);
       expect(stringCalculator.Add("//[,;,;,;,]\n1,;,;,;,4,;,;,;,5")).toBe(10);
     });
@@ -82,14 +82,14 @@ describe("StringCalculator", () => {
 
   // Test Step 8:
   describe("With multiple delimiters", () => {
-    it("Sum with multiple delimiters", () => {
+    it("should calculate the sum of numbers", () => {
       expect(stringCalculator.Add("//[*][%]\n1*2%3:")).toBe(6);
     });
   });
 
   // Test Step 9:
   describe("With 1 char long multiple delimiters", () => {
-    it("Sum with 1 char long multiple delimiters", () => {
+    it("should calculate the sum of numbers", () => {
       expect(
         stringCalculator.Add("//[*][%].!]#,$(\n1*_----=-!-=$2%3*()($#!)(_(+&")
       ).toBe(6);
